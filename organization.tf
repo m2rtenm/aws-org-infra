@@ -5,7 +5,7 @@ resource "aws_organizations_organization" "org" {
     "sso.amazonaws.com",
     "access-analyzer.amazonaws.com",
     "account.amazonaws.com"
-    ]
+  ]
   enabled_policy_types = [
     "SERVICE_CONTROL_POLICY",
     "TAG_POLICY"
