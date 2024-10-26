@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "assume_role" {
@@ -11,20 +20,13 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
-resource "aws_iam_role" "admin_role" {
-  name                = "${var.account_identifier}-AdminRole"
+resource "aws_iam_role" "iam_role" {
+  name                = "${var.account_identifier}-${var.role_name}"
   assume_role_policy  = data.aws_iam_policy_document.assume_role.json
-  managed_policy_arns = ["arn:aws:iam::aws:policy/AdministratorAccess"]
 }
 
-resource "aws_iam_role" "developer_role" {
-  name                = "${var.account_identifier}-DeveloperRole"
-  assume_role_policy  = data.aws_iam_policy_document.assume_role.json
-  managed_policy_arns = ["arn:aws:iam::aws:policy/PowerUserAccess"]
-}
-
-resource "aws_iam_role" "readonly_role" {
-  name                = "${var.account_identifier}-ReadOnlyRole"
-  assume_role_policy  = data.aws_iam_policy_document.assume_role.json
-  managed_policy_arns = ["arn:aws:iam::aws:policy/ReadOnlyAccess"]
+resource "aws_iam_role_policy_attachment" "policy_attachment" {
+  for_each = toset(var.policy_arns)
+  role = aws_iam_role.iam_role.name
+  policy_arn = each.value
 }
