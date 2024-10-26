@@ -1,5 +1,5 @@
 provider "aws" {
-  alias = "dev"
+  alias  = "dev"
   region = var.aws_region
   assume_role {
     role_arn = "arn:aws:iam::${aws_organizations_account.dev.id}:role/dev-OrganizationAccountAccessRole"
@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "prod"
+  alias  = "prod"
   region = var.aws_region
   assume_role {
     role_arn = "arn:aws:iam::${aws_organizations_account.prod.id}:role/prod-OrganizationAccountAccessRole"
@@ -15,7 +15,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "shared"
+  alias  = "shared"
   region = var.aws_region
   assume_role {
     role_arn = "arn:aws:iam::${aws_organizations_account.shared.id}:role/shared-OrganizationAccountAccessRole"
@@ -23,7 +23,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "sec"
+  alias  = "sec"
   region = var.aws_region
   assume_role {
     role_arn = "arn:aws:iam::${aws_organizations_account.sec.id}:role/sec-OrganizationAccountAccessRole"
