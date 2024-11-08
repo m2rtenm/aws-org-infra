@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.aws_region
-}
-
 resource "aws_organizations_account" "dev" {
   name      = "Development"
   email     = "marten.mandla+aws-dev@outlook.com"
